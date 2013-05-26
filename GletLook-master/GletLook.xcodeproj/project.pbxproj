@@ -1,0 +1,471 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1130A3F8174C703700C0E40E /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B65F32135B1FCD003202E2 /* GeneratePreviewForURL.m */; };
+		1130A3F9174C703700C0E40E /* GenerateThumbnailForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B65F33135B1FCD003202E2 /* GenerateThumbnailForURL.m */; };
+		1130A3FA174C703700C0E40E /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B65F38135B1FE3003202E2 /* main.c */; };
+		1130A3FC174C703700C0E40E /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0D51359CF78003C3E9B /* QuickLook.framework */; };
+		1130A3FD174C703700C0E40E /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0D71359CF78003C3E9B /* ApplicationServices.framework */; };
+		1130A3FE174C703700C0E40E /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0D91359CF78003C3E9B /* CoreServices.framework */; };
+		1130A3FF174C703700C0E40E /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0DB1359CF78003C3E9B /* CoreFoundation.framework */; };
+		1130A400174C703700C0E40E /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C91340B91359ECCC008E4461 /* Cocoa.framework */; };
+		1130A402174C703700C0E40E /* GletLook-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C9B65F3B135B1FF2003202E2 /* GletLook-Prefix.pch */; };
+		1130A404174C703700C0E40E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9A1E0E01359CF78003C3E9B /* InfoPlist.strings */; };
+		1130A405174C703700C0E40E /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B65F36135B1FDA003202E2 /* icon.png */; };
+		1130A406174C703700C0E40E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9B65F40135B2021003202E2 /* InfoPlist.strings */; };
+		1130A407174C703700C0E40E /* gletlook.html in Resources */ = {isa = PBXBuildFile; fileRef = C955F055135B272100440D42 /* gletlook.html */; };
+		1130A408174C703700C0E40E /* addgletUTI.app in Resources */ = {isa = PBXBuildFile; fileRef = C90210E1135B38490064D3D3 /* addgletUTI.app */; };
+		C90210E2135B38490064D3D3 /* addgletUTI.app in Resources */ = {isa = PBXBuildFile; fileRef = C90210E1135B38490064D3D3 /* addgletUTI.app */; };
+		C91340BA1359ECCC008E4461 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C91340B91359ECCC008E4461 /* Cocoa.framework */; };
+		C955F056135B272100440D42 /* gletlook.html in Resources */ = {isa = PBXBuildFile; fileRef = C955F055135B272100440D42 /* gletlook.html */; };
+		C9A1E0D61359CF78003C3E9B /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0D51359CF78003C3E9B /* QuickLook.framework */; };
+		C9A1E0D81359CF78003C3E9B /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0D71359CF78003C3E9B /* ApplicationServices.framework */; };
+		C9A1E0DA1359CF78003C3E9B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0D91359CF78003C3E9B /* CoreServices.framework */; };
+		C9A1E0DC1359CF78003C3E9B /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9A1E0DB1359CF78003C3E9B /* CoreFoundation.framework */; };
+		C9A1E0E21359CF78003C3E9B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9A1E0E01359CF78003C3E9B /* InfoPlist.strings */; };
+		C9B65F34135B1FCD003202E2 /* GeneratePreviewForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B65F32135B1FCD003202E2 /* GeneratePreviewForURL.m */; };
+		C9B65F35135B1FCD003202E2 /* GenerateThumbnailForURL.m in Sources */ = {isa = PBXBuildFile; fileRef = C9B65F33135B1FCD003202E2 /* GenerateThumbnailForURL.m */; };
+		C9B65F37135B1FDA003202E2 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = C9B65F36135B1FDA003202E2 /* icon.png */; };
+		C9B65F39135B1FE3003202E2 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = C9B65F38135B1FE3003202E2 /* main.c */; };
+		C9B65F3D135B1FF2003202E2 /* GletLook-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C9B65F3B135B1FF2003202E2 /* GletLook-Prefix.pch */; };
+		C9B65F42135B2021003202E2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9B65F40135B2021003202E2 /* InfoPlist.strings */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		1130A40D174C703700C0E40E /* GletLook copy.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "GletLook copy.qlgenerator"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1130A40E174C703700C0E40E /* GletLook copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GletLook copy-Info.plist"; path = "/Volumes/Downloads/Downloads/GletLook-master/GletLook copy-Info.plist"; sourceTree = "<absolute>"; };
+		C90210E1135B38490064D3D3 /* addgletUTI.app */ = {isa = PBXFileReference; lastKnownFileType = wrapper.application; name = addgletUTI.app; path = GletLook/addgletUTI.app; sourceTree = SOURCE_ROOT; };
+		C90210E4135B42560064D3D3 /* README.markdown */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.markdown; sourceTree = "<group>"; };
+		C91340B91359ECCC008E4461 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		C955F055135B272100440D42 /* gletlook.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = gletlook.html; path = GletLook/gletlook.html; sourceTree = SOURCE_ROOT; };
+		C9A1E0D21359CF78003C3E9B /* GletLook.qlgenerator */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GletLook.qlgenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9A1E0D51359CF78003C3E9B /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
+		C9A1E0D71359CF78003C3E9B /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		C9A1E0D91359CF78003C3E9B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		C9A1E0DB1359CF78003C3E9B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		C9B65F32135B1FCD003202E2 /* GeneratePreviewForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GeneratePreviewForURL.m; path = GletLook/GeneratePreviewForURL.m; sourceTree = SOURCE_ROOT; };
+		C9B65F33135B1FCD003202E2 /* GenerateThumbnailForURL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GenerateThumbnailForURL.m; path = GletLook/GenerateThumbnailForURL.m; sourceTree = SOURCE_ROOT; };
+		C9B65F36135B1FDA003202E2 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = GletLook/icon.png; sourceTree = SOURCE_ROOT; };
+		C9B65F38135B1FE3003202E2 /* main.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = main.c; path = GletLook/main.c; sourceTree = SOURCE_ROOT; };
+		C9B65F3A135B1FF2003202E2 /* GletLook-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GletLook-Info.plist"; path = "GletLook/GletLook-Info.plist"; sourceTree = SOURCE_ROOT; };
+		C9B65F3B135B1FF2003202E2 /* GletLook-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "GletLook-Prefix.pch"; path = "GletLook/GletLook-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		C9B65F41135B2021003202E2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = GletLook/en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1130A3FB174C703700C0E40E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1130A3FC174C703700C0E40E /* QuickLook.framework in Frameworks */,
+				1130A3FD174C703700C0E40E /* ApplicationServices.framework in Frameworks */,
+				1130A3FE174C703700C0E40E /* CoreServices.framework in Frameworks */,
+				1130A3FF174C703700C0E40E /* CoreFoundation.framework in Frameworks */,
+				1130A400174C703700C0E40E /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9A1E0CD1359CF78003C3E9B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9A1E0D61359CF78003C3E9B /* QuickLook.framework in Frameworks */,
+				C9A1E0D81359CF78003C3E9B /* ApplicationServices.framework in Frameworks */,
+				C9A1E0DA1359CF78003C3E9B /* CoreServices.framework in Frameworks */,
+				C9A1E0DC1359CF78003C3E9B /* CoreFoundation.framework in Frameworks */,
+				C91340BA1359ECCC008E4461 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		C9A1E0C51359CF77003C3E9B = {
+			isa = PBXGroup;
+			children = (
+				C90210E4135B42560064D3D3 /* README.markdown */,
+				C9A1E0DD1359CF78003C3E9B /* GletLook */,
+				C9A1E0D41359CF78003C3E9B /* Frameworks */,
+				C9A1E0D31359CF78003C3E9B /* Products */,
+				1130A40E174C703700C0E40E /* GletLook copy-Info.plist */,
+			);
+			sourceTree = "<group>";
+		};
+		C9A1E0D31359CF78003C3E9B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C9A1E0D21359CF78003C3E9B /* GletLook.qlgenerator */,
+				1130A40D174C703700C0E40E /* GletLook copy.qlgenerator */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C9A1E0D41359CF78003C3E9B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C91340B91359ECCC008E4461 /* Cocoa.framework */,
+				C9A1E0D51359CF78003C3E9B /* QuickLook.framework */,
+				C9A1E0D71359CF78003C3E9B /* ApplicationServices.framework */,
+				C9A1E0D91359CF78003C3E9B /* CoreServices.framework */,
+				C9A1E0DB1359CF78003C3E9B /* CoreFoundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		C9A1E0DD1359CF78003C3E9B /* GletLook */ = {
+			isa = PBXGroup;
+			children = (
+				C9B65F32135B1FCD003202E2 /* GeneratePreviewForURL.m */,
+				C9B65F33135B1FCD003202E2 /* GenerateThumbnailForURL.m */,
+				C9B65F38135B1FE3003202E2 /* main.c */,
+				C9A9F880135A81EF00076F5A /* Resources */,
+				C9A1E0DE1359CF78003C3E9B /* Supporting Files */,
+			);
+			name = GletLook;
+			path = gletquicklook;
+			sourceTree = "<group>";
+		};
+		C9A1E0DE1359CF78003C3E9B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C9B65F3A135B1FF2003202E2 /* GletLook-Info.plist */,
+				C9B65F3B135B1FF2003202E2 /* GletLook-Prefix.pch */,
+				C9B65F40135B2021003202E2 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C9A9F880135A81EF00076F5A /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C90210E1135B38490064D3D3 /* addgletUTI.app */,
+				C955F055135B272100440D42 /* gletlook.html */,
+				C9B65F36135B1FDA003202E2 /* icon.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		1130A401174C703700C0E40E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1130A402174C703700C0E40E /* GletLook-Prefix.pch in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9A1E0CE1359CF78003C3E9B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9B65F3D135B1FF2003202E2 /* GletLook-Prefix.pch in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		1130A3F6174C703700C0E40E /* GletLook copy */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1130A40A174C703700C0E40E /* Build configuration list for PBXNativeTarget "GletLook copy" */;
+			buildPhases = (
+				1130A3F7174C703700C0E40E /* Sources */,
+				1130A3FB174C703700C0E40E /* Frameworks */,
+				1130A401174C703700C0E40E /* Headers */,
+				1130A403174C703700C0E40E /* Resources */,
+				1130A409174C703700C0E40E /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "GletLook copy";
+			productName = gletquicklook;
+			productReference = 1130A40D174C703700C0E40E /* GletLook copy.qlgenerator */;
+			productType = "com.apple.product-type.bundle";
+		};
+		C9A1E0D11359CF78003C3E9B /* GletLook */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C9A1E0EC1359CF78003C3E9B /* Build configuration list for PBXNativeTarget "GletLook" */;
+			buildPhases = (
+				C9A1E0CC1359CF78003C3E9B /* Sources */,
+				C9A1E0CD1359CF78003C3E9B /* Frameworks */,
+				C9A1E0CE1359CF78003C3E9B /* Headers */,
+				C9A1E0CF1359CF78003C3E9B /* Resources */,
+				C9A1E0D01359CF78003C3E9B /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GletLook;
+			productName = gletquicklook;
+			productReference = C9A1E0D21359CF78003C3E9B /* GletLook.qlgenerator */;
+			productType = "com.apple.product-type.bundle";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		C9A1E0C71359CF77003C3E9B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0460;
+			};
+			buildConfigurationList = C9A1E0CA1359CF77003C3E9B /* Build configuration list for PBXProject "GletLook" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = C9A1E0C51359CF77003C3E9B;
+			productRefGroup = C9A1E0D31359CF78003C3E9B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				C9A1E0D11359CF78003C3E9B /* GletLook */,
+				1130A3F6174C703700C0E40E /* GletLook copy */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1130A403174C703700C0E40E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1130A404174C703700C0E40E /* InfoPlist.strings in Resources */,
+				1130A405174C703700C0E40E /* icon.png in Resources */,
+				1130A406174C703700C0E40E /* InfoPlist.strings in Resources */,
+				1130A407174C703700C0E40E /* gletlook.html in Resources */,
+				1130A408174C703700C0E40E /* addgletUTI.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9A1E0CF1359CF78003C3E9B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9A1E0E21359CF78003C3E9B /* InfoPlist.strings in Resources */,
+				C9B65F37135B1FDA003202E2 /* icon.png in Resources */,
+				C9B65F42135B2021003202E2 /* InfoPlist.strings in Resources */,
+				C955F056135B272100440D42 /* gletlook.html in Resources */,
+				C90210E2135B38490064D3D3 /* addgletUTI.app in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXRezBuildPhase section */
+		1130A409174C703700C0E40E /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9A1E0D01359CF78003C3E9B /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXRezBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1130A3F7174C703700C0E40E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1130A3F8174C703700C0E40E /* GeneratePreviewForURL.m in Sources */,
+				1130A3F9174C703700C0E40E /* GenerateThumbnailForURL.m in Sources */,
+				1130A3FA174C703700C0E40E /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C9A1E0CC1359CF78003C3E9B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C9B65F34135B1FCD003202E2 /* GeneratePreviewForURL.m in Sources */,
+				C9B65F35135B1FCD003202E2 /* GenerateThumbnailForURL.m in Sources */,
+				C9B65F39135B1FE3003202E2 /* main.c in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C9A1E0E01359CF78003C3E9B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+			);
+			name = InfoPlist.strings;
+			path = /Users/matt/Desktop/gletquicklook/gletquicklook;
+			sourceTree = "<absolute>";
+		};
+		C9B65F40135B2021003202E2 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C9B65F41135B2021003202E2 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		1130A40B174C703700C0E40E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GletLook/GletLook-Prefix.pch";
+				INFOPLIST_FILE = "GletLook copy-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = "GletLook copy";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Debug;
+		};
+		1130A40C174C703700C0E40E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GletLook/GletLook-Prefix.pch";
+				INFOPLIST_FILE = "GletLook copy-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = "GletLook copy";
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Release;
+		};
+		C9A1E0EA1359CF78003C3E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		C9A1E0EB1359CF78003C3E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		C9A1E0ED1359CF78003C3E9B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GletLook/GletLook-Prefix.pch";
+				INFOPLIST_FILE = "GletLook/GletLook-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = GletLook;
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Debug;
+		};
+		C9A1E0EE1359CF78003C3E9B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GletLook/GletLook-Prefix.pch";
+				INFOPLIST_FILE = "GletLook/GletLook-Info.plist";
+				INSTALL_PATH = /Library/QuickLook;
+				PRODUCT_NAME = GletLook;
+				WRAPPER_EXTENSION = qlgenerator;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1130A40A174C703700C0E40E /* Build configuration list for PBXNativeTarget "GletLook copy" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1130A40B174C703700C0E40E /* Debug */,
+				1130A40C174C703700C0E40E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9A1E0CA1359CF77003C3E9B /* Build configuration list for PBXProject "GletLook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9A1E0EA1359CF78003C3E9B /* Debug */,
+				C9A1E0EB1359CF78003C3E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C9A1E0EC1359CF78003C3E9B /* Build configuration list for PBXNativeTarget "GletLook" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C9A1E0ED1359CF78003C3E9B /* Debug */,
+				C9A1E0EE1359CF78003C3E9B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = C9A1E0C71359CF77003C3E9B /* Project object */;
+}

@@ -1,0 +1,27 @@
+#!/usr/bin/env ruby
+
+# prints CPU utilization according to 'top -l 2'
+
+Dir[ File.dirname(__FILE__) + '/../config/*.rb', File.dirname(__FILE__) + '/../lib/*.rb' ].each { |file| require File.expand_path file } # load all modules
+include GeektoolScripts
+
+input = ARGV.join ' '
+
+if input == ''
+  # print help info if no input
+  puts "Description: prints CPU utilization according to 'top -l 2'"
+  puts "Usage: cpu cpu_format"
+  puts "Exmaples:"
+  puts "  cpu CPU: USED used, IDLE idle # => #{cpu 'CPU: USED used, IDLE idle'}"
+  puts "  cpu CPU '[USED20|-%]' USED # => #{cpu 'CPU [USED20|-%] USED'}"
+  puts "Formats:"
+  puts "  cpu USED IDLE # => #{cpu 'USED IDLE'}"
+  puts "  cpu '1:[USED15%]\\n2:|USED10*%|\\n3:USED20>=%' # => (see percentage bar format)"
+  puts "#{cpu '    1:[USED15%]\n    2:|USED10*%|\n    3:USED20>=%'}"
+  puts "Percentage Bar Format:"
+  puts "  USED<bar_length>[<filling_character>[<spacing_character>]]%"
+  puts "  Filling character (optional) is default to '|', spacing character (optional) is default to '-'"
+  puts ""
+else
+  puts cpu input
+end

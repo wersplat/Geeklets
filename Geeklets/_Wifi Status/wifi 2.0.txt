@@ -1,0 +1,31 @@
+path to me as text
+set pathName to text 1 through ((length of result) - 13) of result
+set pathName to POSIX path of pathName
+set wifi_status to do shell script "networksetup -getairportpower en0"
+if wifi_status is equal to "Wi-Fi Power (en0): Off" then
+	set wifi_img to "img/wf off.png"
+	set echo_v to "Wi-fi Off" as string
+else
+	set wifi_img to "img/wf on.png"
+	set echo_v to "Wi-fi on"
+	set net_name to do shell script "networksetup -getairportnetwork en0"
+	set net_stat to text 1 thru 3 of net_name
+	if net_stat is equal to "You" then
+		set echo_v to "Not connected" as string
+		set wifi_img to "img/not connected.png"
+	else
+		set net_title to text 24 thru (length of net_name) of net_name
+		set echo_v to "Connected to:" & return & net_title as string
+		try
+			set ping_r to do shell script "/sbin/ping -o -c 5 www.google.com"
+		on error
+			set wifi_img to "img/issues.png"
+			set echo_v to echo_v & " but not to internet" as string
+		end try
+	end if
+end if
+do shell script ("cp '" & pathName & "/" & wifi_img & "' " & "'" & pathName & "/wifi_status.png'")
+
+set gt to "Wifi Status:" & return & echo_v as text
+set eof of (pathName & "/gt.txt") to 0
+write gt to pathName & "/gt.txt"

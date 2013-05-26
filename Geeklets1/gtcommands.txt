@@ -1,0 +1,60 @@
+To use these scripts, copy and paste the relevant lines into the shell command area in GeekTool.
+
+#DATE
+date +%d
+
+
+#MONTH
+date +%B
+
+
+#DAY
+date +%A
+
+
+#WEATHER CONDITIONS
+curl --silent "http://xml.weather.yahoo.com/forecastrss?p=CITYDATA&u=f" | grep -E '(Current Conditions:|F<BR)' | sed -e 's/Current Conditions://' -e 's/<br \/>//' -e 's/<b>//' -e 's/<\/b>//' -e 's/<BR \/>//' -e 's/<description>//' -e 's/<\/description>//'
+
+
+#TIME
+date '+%I:%M %p'
+
+
+#CALENDAR
+cal
+
+
+#NETWORK CONNECTIONS
+myen0=`ifconfig en0 | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'`
+
+if [ "$myen0" != "" ]
+then
+    echo "$myen0"
+else
+    echo "INACTIVE"
+fi
+
+myen1=`ifconfig en1 | grep "inet " | grep -v 127.0.0.1 | awk '{print $2}'`
+
+if [ "$myen1" != "" ]
+then
+    echo "$myen1"
+else
+    echo "INACTIVE"
+fi
+
+wip=`curl --silent http://checkip.dyndns.org | awk '{print $6}' | cut -f 1 -d "<"`
+echo "$wip"
+
+
+#UPTIME
+uptime | awk '{sub(/[0-9]|user\,|users\,|load/, "", $6); sub(/mins,|min,/, "min", $6); sub(/user\,|users\,/, "", $5); sub(",", "min", $5); sub(":", "h ", $5); sub(/[0-9]/, "", $4); sub(/day,/, " day ", $4); sub(/days,/, " days ", $4); sub(/mins,|min,/, "min", $4); sub("hrs,", "h", $4); sub(":", "h ", $3); sub(",", "min", $3); print "Uptime: " $3$4$5$6}'
+
+
+#TRANSMIT RATE
+mytr=`airport -I | awk '/lastTxRate/ {print $2}'`
+
+if [ "$mytr" != "" ]
+then
+    echo "Airport Transmit Rate: $mytr"
+fi

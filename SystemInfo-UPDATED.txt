@@ -1,0 +1,338 @@
+## Statistic Geeklet by W3K, May 2012
+## Credit to others work where credit is due
+## Revision: 20th August, 2012
+
+bold='[1m'
+nobold='[22m'
+
+# Human Readable Data Format
+## We use this to convert byte values to KB/MB/GB
+## EG: For iCloud and RAM%
+## Credit: http://j.mp/TebZWs
+function hrFormat () {
+	awk -v sum=$1 'BEGIN {hum[1024**3]="Gb";hum[1024**2]="Mb";hum[1024]="Kb"; 
+	for (x=1024**3; x>=1024; x/=1024){ 
+			if (sum>=x && hum[x]=="Gb") { printf "%.2f %s\n",sum/x,hum[x];break
+			}else if (sum>=x && hum[x]=="Mb") { printf "%.0f %s\n",sum/x,hum[x];break }
+	}}'
+}
+
+
+# Startup Disk
+startupDisk=$(diskutil info $(bless --getBoot) | awk -F: 'NR==6 {sub(/^[ ]+/, "", $2); print $2}')
+startupDiskVer=`defaults read "/Volumes/$startupDisk/System/Library/CoreServices/SystemVersion" ProductVersion`
+[ "$startupDiskVer" ] && sDV=", ${startupDiskVer}"
+
+echo "${bold}Boot Disk:${nobold}\t${startupDisk}${sDV}"
+
+
+# Network Location
+	## Credit: http://bit.ly/4o7apb
+usrLocation=`networksetup -getcurrentlocation`
+echo "${bold}Location:${nobold}\t${usrLocation}"
+
+
+# Current Wi-Fi Network
+	## Credit for SED code unknown
+myWiFi=`networksetup -getairportpower en1 | grep 'On'`
+mySSID=`airport -I | awk '/ SSID/ {sub(/^[^:]*: /, "", $0); print $0}'`
+
+if [ "$mySSID" ]; then
+	myENX="Wi-Fi"
+	C=`echo ${mySSID:0:1} | tr a-z A-Z`
+	myNetwork="$C${mySSID:1}"
+elif [ "$myWiFi" ]; then
+	myNetwork="No Network Selected"
+else
+	myNetwork="Off"
+fi
+
+echo "${bold}Wi-Fi:${nobold}\t\t${myNetwork}"
+
+
+# Current Wi-Fi Access Point
+	## Will only display if the readable name of an AP is listed
+myBSSID=`airport -I | awk '/BSSID/ {print $2}'`
+myChan=`airport -I | awk -F, '/channel/ {sub(/^[^:]*: /, "", $0); print $1}'`
+
+case $myBSSID in
+	70:73:cb:b6:3c:4)	ssidLoc="Time Capsule";;
+	70:73:cb:b6:3c:3)	ssidLoc="Time Capsule";;
+	0:4:ed:c5:4c:24)	ssidLoc="Billion Router";;
+	62:a6:d9:a2:c8:18)	ssidLoc="iPhone Hotspot";;
+	7a:a3:e4:58:58:8)	ssidLoc="iPhone Hotspot";;
+	
+	0:1a:1e:58:9e:31)	ssidLoc="[D] 2.13, PC Lab";;
+	0:1a:1e:23:3c:92)	ssidLoc="[D] 2.13, PC Lab";;
+	0:1a:1e:57:44:31)	ssidLoc="[D] 2.19, Office";;
+	0:1a:1e:57:d3:71)	ssidLoc="[D] 2.19, Office";;
+	0:1a:1e:59:49:31)	ssidLoc="[D] 2.03, Lecture";;
+	0:1a:1e:59:48:f1)	ssidLoc="[D] 2.04, Lecture";;
+	0:1a:1e:59:49:22)	ssidLoc="[D] 2.04, Lecture";;
+	0:1a:1e:57:d3:d1)	ssidLoc="[K] Library";;
+	0:1a:1e:57:d5:31)	ssidLoc="[K] Library";;
+	0:1a:1e:57:d4:91)	ssidLoc="[K] Library";;
+	0:1a:1e:5a:49:91)	ssidLoc="[K] Library, OLC";;
+	0:1a:1e:57:d3:c1)	ssidLoc="[K] Canteen";;
+	0:1a:1e:*)			ssidLoc="[?] TAFE, Unknown";;
+esac
+
+[ "$myChan" -gt "13" ] && ssid5ghz=" (5G)"
+[ "$ssidLoc" ] && echo "${bold}Wi-Fi AP:${nobold}\t${ssidLoc}${ssid5ghz}"
+
+
+echo "  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+
+
+# Retrieve the name of the closest city
+myTimezone="defaults read /Library/Preferences/.GlobalPreferences com.apple.preferences.timezone.selected_city"
+myLocation=`$myTimezone | awk '/ Name/ {gsub(/[^A-Za-z ]*/, "", $0);print $2}'`
+myCountry=`$myTimezone | awk '/CountryCode/ {gsub(/[^A-Za-z ]*/, "", $0);print $2}'`
+
+[ "$myLocation" ] && echo "${bold}City:${nobold}\t\t${myLocation}, ${myCountry}"
+
+
+# Current Battery Charge
+	## Credit: http://bit.ly/KObFdh
+usrBatteryPercent=`pmset -g ps  |  sed -n 's/.*[[:blank:]]+*\(.*%\).*/\1/p'`
+usrBattery="ioreg -n AppleSmartBattery -r"
+usrIsCharging=`$usrBattery | awk '/IsCharging/ {print $3}'`
+usrFullyCharged=`$usrBattery | awk '/FullyCharged/ {print $3}'`
+usrExtConnected=`$usrBattery | awk '/ExternalConnected/ {print $3}'`
+
+# Battery Charge Remaining
+usrBattMins=`ioreg -rn AppleSmartBattery | awk '/TimeRemaining/ {print $3}'`;
+H=$(($usrBattMins / 60));
+M=$(($usrBattMins - ($usrBattMins / 60) * 60));
+
+if [ "$usrIsCharging" = "Yes" ]; then
+	usrCharge="${usrBatteryPercent} (Charging)"
+elif [ "$usrFullyCharged" = "Yes" -a "$usrExtConnected" = "Yes" ]; then
+	usrCharge="${usrBatteryPercent} (Battery Full)"
+elif [ "$usrIsCharging" = "No" -a "$usrExtConnected" = "Yes" ]; then	usrCharge="${usrBatteryPercent} (Not Charging)"
+elif [ "$usrBattMins" -lt "700" -a "$usrBattMins" != "0" ]; then
+	usrCharge=`printf ${usrBatteryPercent}'% (%i:%.02i Remaining)' $H $M`
+else
+	usrCharge="${usrBatteryPercent}"
+fi
+
+[ "$usrCharge" ] && echo "${bold}Charge:${nobold}\t\t${usrCharge}"
+
+
+# Current Uptime
+usrUptime=`uptime | sed -e 's/.*up //' -e 's/, [0-9] user.*//' | sed -e 's/:0/ /g' -e 's/:/ /'`
+usrUptime=`echo $usrUptime | awk '{
+	if($2 ~ "day"){ print $1,$2;
+		if($4 ~ "[1-9].*"){
+			printf($3 == "1" ? $3" hr" : $3" hrs");
+			printf($4 == "1" ? ", "$4" min" : ", "$4" mins");
+		}else{ print $3,$4; }
+	}else if($2 ~ "[0-9].*"){
+		if($1 > "0")		{ printf($1 == "1" ? $1" hr" : $1" hrs");           }
+		if($2 ~ "[1-9].*")	{ printf($2 == "1" ? ", "$2" min" : ", "$2" mins"); }
+	}else{ print $1,$2; }
+}'`
+
+[ "$usrUptime" ] && echo "${bold}Uptime:${nobold}\t\t"$usrUptime
+
+
+
+# Time Machine Backup
+	## Credit for date code: http://bit.ly/NlMKyn
+	## Credit for Ordinal code: http://bit.ly/Kw3fIN
+tmBackup=`defaults read /Library/Preferences/com.apple.TimeMachine Destinations | awk -F\" 'NR==3 {print $4}'`
+tmBackupDate=`date -j -f "%Y-%m-%d %H:%M:%S %z" "$tmBackup" "+%d/%m"`
+
+if [ "$tmBackupDate" = "" ]; then
+	tmNoBackup="No Backup Available"
+elif [ "$tmBackupDate" = "`date '+%d/%m'`" ]; then
+	tmLastBackup="Today, at %-I:%M %p"
+elif [ "$tmBackupDate" = "`date -v-1d '+%d/%m'`" ]; then
+	tmLastBackup="Yesterday, at %-I:%M %p"
+else
+	ordinal=`date -j -f "%Y-%m-%d %H:%M:%S %z" "$tmBackup" "+%-e" | sed -E 's/(1)$/\1st/'| sed -E 's/(2)$/\1nd/' | sed -E 's/([^1]3)$/\1rd/' | sed -E 's/([0-9])$/\1th/'`
+	tmLastBackup="${ordinal} %B %Y"
+fi
+
+tmLastBackup=`date -j -f "%Y-%m-%d %H:%M:%S %z" "$tmBackup" "+${tmLastBackup}"`
+[ "$tmNoBackup" ] && tmLastBackup=$tmNoBackup
+echo "${bold}Backup:${nobold}\t\t${tmLastBackup}"
+
+
+# Get iCloud Usage Quota from System Preferences (24h Refresh)
+	## User needs to be signed into iCloud via SysPrefs
+usrIPv4=`ifconfig | awk '/broadcast/ {print $2;exit}'`
+if [ "`date -v -24H +'%Y%j%H%M'`" -gt "`defaults read w3k.glet iCloud_Upd`" ]; then
+	iCloud_Value=$(osascript ~/Public/GeekTool/iCloudQuota.scpt)
+	defaults write w3k.glet iCloud_Storage $iCloud_Value
+	defaults write w3k.glet iCloud_Free "$(echo $iCloud_Value | awk '{print $1*1073741824}')"
+	defaults write w3k.glet iCloud_Used "$(echo $iCloud_Value | awk '{print ($4-$1)*1073741824}')"
+	defaults write w3k.glet iCloud_Total "$(echo $iCloud_Value | awk '{print $4*1073741824}')"
+	defaults write w3k.glet iCloud_Perc "$(echo $iCloud_Value | awk '{printf "%.f%%", ($4-$1)/$4*100}')"
+	defaults write w3k.glet iCloud_Upd "$(date +'%Y%j%H%M')"
+elif [ "`defaults read-type w3k.glet iCloud_Upd`" != "Type is string" ]; then
+	defaults write w3k.glet iCloud_Upd "$(date -v -24H +'%Y%j%H%M')"	
+fi
+
+if [ "defaults read w3k.glet iCloud_Storage" = "Details not available." -a "$usrIPv4" ]; then
+	defaults write w3k.glet iCloud_Upd "$(date -v -24H +'%Y%j%H%M')"
+fi
+
+[ "`defaults read w3k.glet iCloud_Storage`" ] && echo "${bold}iCloud:${nobold}\t\t$(defaults read w3k.glet iCloud_Perc) ($(hrFormat $(defaults read w3k.glet iCloud_Used)) used)"
+
+
+echo "  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+
+
+# Current CPU %
+usrCPU=`top -n 0 -l 2 | awk '/CPU usage/ && NR > 5 {printf "%.f%%", $3+$5;exit}'`
+cpuTemp=`tempmonitor -ds -c -a -l | awk '/PROXIMITY/ {print $5;exit}'`
+
+	## CPU Utilisation will display temp if "tempmonitor" is installed
+[ "$cpuTemp" ] && cpuTemp="(${cpuTemp}°C)"
+[ "$usrCPU" ] && echo "${bold}CPU %:${nobold}\t\t${usrCPU} ${cpuTemp}"
+
+
+# Current RAM %
+	## Human Readable Function Credit: http://j.mp/TebZWs
+tmem=`sysctl -n hw.memsize | awk '{print $0/1048576}'`
+vmstat=$(/usr/bin/vm_stat | awk -v tmem=${tmem} '
+	/free/ {FREE_BLOCKS = $3*tmem}
+	/ active/ {ACTIVE_BLOCKS = $3*tmem}
+	/inactive/ {INACTIVE_BLOCKS = $3*tmem}
+	/speculative/ {SPECULATIVE_BLOCKS = $3*tmem}
+	/wired/ {WIRED_BLOCKS = $4*tmem}
+END {
+	printf "%.0f ", FREE_BLOCKS+SPECULATIVE_BLOCKS	## 0
+	printf "%.0f ", WIRED_BLOCKS					## 1
+	printf "%.0f ", ACTIVE_BLOCKS					## 2
+	printf "%.0f%% ", ACTIVE_BLOCKS / tmem/1048576 * 100
+	printf "%.0f ", INACTIVE_BLOCKS					## 4
+	printf "%.0f ", tmem*1048576					## 5
+}')
+mySysMem=($vmstat)
+ 
+echo "${bold}RAM %:${nobold}\t\t${mySysMem[3]} ($(hrFormat ${mySysMem[2]}) Active)"
+
+
+# Current Disk Usage %
+	## Credit: Unknown
+	## Will display SMART status if it is not VERIFIED
+myDiskUsePc=`df -hl | awk '/disk0s2/ {print $5}'`
+myDiskUseMb=`df -hl | awk '/disk0s2/ {sub(/Gi/, "Gb", $3); print $3}'`
+mySMART=`diskutil info $(bless --getBoot) | awk '/SMART/ {print $3}' | grep Verified > /dev/null`
+
+[ "$myDiskUsePc" -a "$myDiskUseMb" ] && echo "${bold}HDD %:${nobold}\t\t"$myDiskUsePc "("$myDiskUseMb" Used)" $mySMART
+
+# Check GPU in use
+	## Display GPU in use if GPU count is 2
+gpu_count=`system_profiler -xml SPDisplaysDataType | awk '/sppci_model/ {ct=ct+NF}; END {print ct-1}'`
+gpu_inf="system_profiler SPDisplaysDataType"
+gpu_intel=`$gpu_inf | awk 'NR==15 {print $3}'`
+
+if [ "$gpu_intel" = "LCD" -a "$gpu_count" = "2" ]; then
+	# gpu_curr="Intergrated"
+	gpu_curr=`$gpu_inf | awk -F": " 'NR==5 {print $2}'`
+elif [ "$gpu_count" = "2" ]; then
+	#gpu_curr="Discrete"
+	gpu_curr=`$gpu_inf | awk -F": " 'NR==16 {print $2}'`
+fi
+
+echo "${bold}GPU:${nobold}\t\t"$gpu_curr
+
+
+# Current User Downloads Folder Size
+fdrSize=`du -sh ~/Downloads | awk '{print $1}'`
+[ "${fdrSize#${fdrSize%?}}" = "B" -o ${fdrSize%?} == "8.0" ] && dirSize="Empty" || dirSize="${fdrSize%?} ${fdrSize#${fdrSize%?}}b"
+echo "${bold}DL's:${nobold}\t\t${dirSize}"
+
+
+# Current User Trash Folder Size
+fdrSize=`du -sh ~/.Trash | awk '{print $1}'`
+[ "${fdrSize#${fdrSize%?}}" = "B" -o ${fdrSize%?} -lt "17" ] && dirSize="Empty" || dirSize="${fdrSize%?} ${fdrSize#${fdrSize%?}}b"
+echo "${bold}Trash:${nobold}\t\t${dirSize}"
+
+
+echo "  ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯"
+
+
+####################
+# Curl shortcuts
+ucurl="curl -s --connect-timeout 2"
+####################
+
+
+# Internal IPv4 Address
+usrIPv4=`ifconfig | awk '/broadcast/ {print $2;exit}'`
+[ "$usrIPv4" ] && echo "${bold}Local IP:${nobold}\t${usrIPv4}"
+
+# External IPv4 Address
+	## Will check router for IP every 20m & cache result
+	## If router does not have SNMP, it checks an ext server
+ip_Gate=`netstat -nr | awk '/default/ {print $2;exit}'`
+ip_Ext=`snmpwalk -t 0.5 -r 0 -Os -c public -v 1 ${ip_Gate} ipAdEntAddr | awk 'NR==1 {print $4}'` 
+[ ! "$ip_Ext" ] && ip_Ext=`$ucurl http://automation.whatismyip.com/n09230945.asp`
+
+if [ "$usrIPv4" != "`defaults read w3k.glet ip_Local`" ]; then
+	defaults write w3k.glet ip_Local $usrIPv4
+	defaults write w3k.glet ip_Gate $ip_Gate
+	defaults write w3k.glet ip_Ext $ip_Ext
+	defaults write w3k.glet ip_Upd "$(date +'%Y%j%H%M')"
+elif [ "`date -v -20M +'%Y%j%H%M'`" -gt "`defaults read w3k.glet ip_Upd`" ]; then
+	defaults write w3k.glet ip_Ext $ip_Ext
+	defaults write w3k.glet ip_Upd "$(date +'%Y%j%H%M')"
+elif [ "`defaults read-type w3k.glet ip_Upd`" != "Type is string" ]; then
+	defaults write w3k.glet ip_Upd "$(date -v -20M +'%Y%j%H%M')"
+fi
+
+ip_Ext=`defaults read w3k.glet ip_Ext`
+[ "$ip_Ext" ] && echo "${bold}WAN IP:${nobold}\t\t$ip_Ext"
+
+
+# Download Speed
+## Credit: http://bit.ly/L7BA0u
+if [ "$usrIPv4" ]; then
+	sample1=(`netstat -ib | awk '/en1/ {print $7,$10; exit}'`)
+	sleep 1
+	sample2=(`netstat -ib | awk '/en1/ {print $7,$10; exit}'`)
+
+	results=(`echo "2k ${sample2[0]} ${sample1[0]} - 1024 / p" \
+		  "${sample2[1]} ${sample1[1]} - 1024 / p" | dc`)
+	printf "${bold}DL Speed:${nobold}\t%.2f Kbps\r" ${results[0]}
+fi
+
+
+# ADSL Downstream Sync Speed
+	## Will check Billion 7800N router via SNMP for Sync Speed (2h Refresh)
+[ "$ip_Gate" != "192.168.1.128" ] && ip_Gate="ichor.w3k.id.au"
+if [ "`date -v -2H +'%Y%j%H%M'`" -gt "`defaults read w3k.glet adsl_Upd`" ]; then
+	defaults write w3k.glet adsl_Sync "$(snmpwalk -Os -c public -v 1 ${ip_Gate} transmission.94.1.1.3.1.8.3 | awk -F: '{print $2/1000}')"
+	defaults write w3k.glet adsl_Upd "$(date +'%Y%j%H%M')"
+elif [ "`defaults read-type w3k.glet adsl_Upd`" != "Type is string" ]; then
+	defaults write w3k.glet adsl_Upd "$(date -v -2H +'%Y%j%H%M')"
+fi
+
+adsl_Sync=`defaults read w3k.glet adsl_Sync`
+[ "$adsl_Sync" -a "$ssidLoc" != "iPhone Hotspot" ] && echo "${bold}Net Sync:${nobold}\t${adsl_Sync} Kbps"
+
+## NOTES AND LEARNING REFERENCES
+
+## Printf Ternary Operator
+## printf($1 == "1" ? $1" day" : $1 " days")
+## http://bit.ly/ctEtXV
+
+## Single line bash IF statement
+## [ "1" = "1" ] && echo "This echos because 1 equals 1"
+## (7.1.2.3. String comparisons) http://bit.ly/2wJl1Z
+
+## Bash AND/OR expressions
+## [ $1 -a $2 -a $3 ] && echo "$1 and $2 and $3 must exist!"
+## (Table 7-2. Combining expressions) http://bit.ly/2wJl1Z
+
+## AWK IF statements
+## if($1 > "0") { printf($1 == "1" ? ", "$1" day" :  ", "$1" days"); }
+## http://bit.ly/ctEtXV
+
+## Alternative CPU collection code
+## Credit for AWK addition code: http://bit.ly/JQFVrc
+## usrCPU=`ps aux | awk '{cpu+=$3} END {printf "%.f%%", cpu}'`

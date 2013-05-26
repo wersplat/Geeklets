@@ -1,0 +1,22 @@
+OK this is set for St. Catharines, ON and it's not exactly the most straight forward thing to change. so READ CAREFULLY.
+
+What you need to find first is your yahoo weather code for your city (US/CA)… for example, mine is CAXX0416… google it.
+
+now double click everything in the weather panel folder to load up the panel
+
+with geektool open, click the geeklet showing today's weather, 
+
+in the properties window for the geeklet you should see a button called command, 
+
+click the "…" beside the random string of code, it will popopen a box of code. 
+
+find and change every CAXX0416 to your CODE
+
+REPEAT THE SAME THING (i.e. change the weather code in the command box) FOR:
+
+2. tomorrow's forecast geeklet
+
+3. THE BACKGROUND PANEL geeklet!!!!! the background panel is ACTUALLY the script that fetches the proper image that is displayed separately by the image geeklet… if you don't change the background panel's code, it won't get you the right weather picture, and you'll either get nothing, or my weather.  … I did this to save an extra geeklet (note: you can make this panel transparent if you don't want the grey background or if you want to use weather in a different setup)
+
+GOOD LUCK!
+

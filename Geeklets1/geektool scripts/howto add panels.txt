@@ -1,0 +1,4 @@
+if you want a panel to work you need to basically click everything in the folder… and of course have geektool installed
+
+i.e. you need the background/panel geeklet for the background and the script geeklet to show you the information… if it's coming out weird, see the readme for troubleshooting.
+

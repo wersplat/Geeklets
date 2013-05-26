@@ -1,0 +1,1 @@
+curl --silent "YOUR_URL" | grep "current-weather" | sed "s/.*background\:url(\'\(.*\)\') .*/\1/" | xargs curl --silent -o /tmp/weather.png\

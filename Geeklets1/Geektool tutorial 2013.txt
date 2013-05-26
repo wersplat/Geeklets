@@ -1,0 +1,29 @@
+Weather Forecast for Amsterdam (Dutch/Holland) and each other country and city that Yahoo weather supports.
+
+
+This text will be in the description.
+For you is it the easiest way to paste the TXT. in a Text editor file like me.
+
+
+
+
+- The Shell that shows the temp (in celcius or fahrenheit) and weather:
+ 
+Celsius : 
+curl --silent "http://xml.weather.yahoo.com/forecastrss?p=YOUR_AREA_CODE&u=c" | grep -E '(Current Conditions:|C<BR)' | sed -e 's/Current Conditions://' -e 's/<br \/>//' -e 's/<b>//' -e 's/<\/b>//' -e 's/<BR \/>//' -e 's/<description>//' -e 's/<\/description>//'
+
+Fahrenheit :  
+curl --silent "http://xml.weather.yahoo.com/forecastrss?p=YOUR_AREA_CODE&u=f" | grep -E '(Current Conditions:|F<BR)' | sed -e 's/Current Conditions://' -e 's/<br \/>//' -e 's/<b>//' -e 's/<\/b>//' -e 's/<BR \/>//' -e 's/<description>//' -e 's/<\/description>//'
+
+
+- The Shell that grabs the image (it won't show any thing but you need it):
+
+curl --silent "YOUR_URL" | grep "current-weather" | sed "s/.*background\:url(\'\(.*\)\') .*/\1/" | xargs curl --silent -o /tmp/weather.png\
+
+
+- Use a image geeklet. this will show the Image: 
+
+file://localhost/tmp/weather.png
+
+
+
